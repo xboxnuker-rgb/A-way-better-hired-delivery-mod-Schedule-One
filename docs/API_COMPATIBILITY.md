@@ -1,6 +1,6 @@
 # Verified Game API Surface
 
-Status: Verified  
+Status: Verified
 Target: Schedule I 0.4.6f13 IL2CPP
 
 ## Pinned inputs
