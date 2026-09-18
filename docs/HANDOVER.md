@@ -2,14 +2,14 @@
 
 ## Active claim
 
-- Backlog: `VH-M1-001`
+- Backlog: `VH-M1-002`
 - Owner: Codex
-- Branch: `feat/vh-m1-001-api-verifier`
-- Status: `DONE`
+- Branch: `feat/vh-m1-002-contracts`
+- Status: `IN_PROGRESS`
 
 ## Current outcome
 
-Foundation PR #1 is merged. The exact M1 compatibility gate is complete on draft PR #2 and verifies the reference layout, game and FishNet hashes, type inheritance, method signatures, property contracts, singleton access, server-authority signals, GUID lookup, selection collections, movement, dock occupancy, and save/load hooks required by later milestones.
+Foundation PR #1 and the exact API-verifier PR #2 are merged. `VH-M1-002` is claimed to freeze the shared identifiers, validation results, state transitions, service boundaries, and reservation ownership required by later milestones.
 
 ## Compatibility target
 
@@ -38,6 +38,6 @@ Commands:
 
 ## Next work
 
-1. Review and merge draft PR #2 with owner approval.
-2. Claim `VH-M1-002` and freeze identifiers, validation results, state transitions, service boundaries, and reservation ownership.
+1. Freeze identifiers, assignment and reservation keys, validation result types, state transitions, service interfaces, and reservation ownership.
+2. Review and merge the `VH-M1-002` contract PR with owner approval.
 3. Begin M2, M3, and M4 only after those shared contracts are merged.
