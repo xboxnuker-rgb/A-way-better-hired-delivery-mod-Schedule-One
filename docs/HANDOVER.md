@@ -2,14 +2,14 @@
 
 ## Active claim
 
-- Backlog: `VH-M0-001`, `VH-M0-002`
+- Backlog: `VH-M1-001`
 - Owner: Codex
-- Branch: `feat/vh-m0-001-project-scaffold`
-- Status: `VERIFYING`
+- Branch: `feat/vh-m1-001-api-verifier`
+- Status: `DONE`
 
 ## Current outcome
 
-The public-repository-safe foundation, canonical project documents, IL2CPP project scaffold, and exact API verification entry point are complete and ready for review.
+Foundation PR #1 is merged. The exact M1 compatibility gate is complete on draft PR #2 and verifies the reference layout, game and FishNet hashes, type inheritance, method signatures, property contracts, singleton access, server-authority signals, GUID lookup, selection collections, movement, dock occupancy, and save/load hooks required by later milestones.
 
 ## Compatibility target
 
@@ -17,16 +17,17 @@ The public-repository-safe foundation, canonical project documents, IL2CPP proje
 - Backend: IL2CPP
 - MelonLoader: `0.7.0 Open-Beta` reference layout
 - `Assembly-CSharp.dll` SHA-256: `0D2EB364F3E84120AF7CCC9FA6BAFD597D42D495EBACC3A260CB4CA0CF0513DA`
+- `Il2CppFishNet.Runtime.dll` SHA-256: `202E89D1E5B27E19403F66DA1779CA82E6E08D17199F2D2593C86CFDC65EF0F4`
 
 Game references remain outside this repository.
 
 ## Verification status
 
-- Public repository cloned successfully and confirmed empty.
-- Compatibility hash confirmed from the existing out-of-tree reference set.
-- Static API verification passed for the initial Handler, employee, delivery, dock, property, vehicle, parking, NPC, and save signatures.
-- Release build completed with zero warnings and zero errors.
-- Initial scaffold DLL SHA-256: `BAB430DDDCD2E690A085838B42293662F0BB6E70FF1A8AC4E560E2DB49F35655`
+- Strict static API verification passed all 95 checks against the out-of-tree reference set.
+- An intentionally incorrect `Assembly-CSharp.dll` hash was rejected before API inspection.
+- Release build completed with zero warnings and zero errors using .NET SDK `8.0.425`.
+- Verified scaffold DLL SHA-256: `E7A2DC413DAA588C64AC0EE60151EE2862295F550E45902921E07C6B75CC24CC`.
+- Runtime behavior remains untested because gameplay implementation has not started.
 
 Commands:
 
@@ -37,6 +38,6 @@ Commands:
 
 ## Next work
 
-1. Review and merge the foundation branch.
-2. Claim `VH-M1-001` on its own branch after the foundation is publicly visible.
-3. Freeze the cross-worker contracts before parallel M2/M3/M4 implementation.
+1. Review and merge draft PR #2 with owner approval.
+2. Claim `VH-M1-002` and freeze identifiers, validation results, state transitions, service boundaries, and reservation ownership.
+3. Begin M2, M3, and M4 only after those shared contracts are merged.
