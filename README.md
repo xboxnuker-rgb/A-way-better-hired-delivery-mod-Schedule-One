@@ -31,6 +31,7 @@ IL2CPP and Mono builds are not interchangeable.
 
 - [Product specification](docs/PRODUCT_SPEC.md)
 - [Architecture](docs/ARCHITECTURE.md)
+- [Verified game API surface](docs/API_COMPATIBILITY.md)
 - [Implementation plan](docs/IMPLEMENTATION_PLAN.md)
 - [Backlog](docs/BACKLOG.md)
 - [Current handover](docs/HANDOVER.md)
