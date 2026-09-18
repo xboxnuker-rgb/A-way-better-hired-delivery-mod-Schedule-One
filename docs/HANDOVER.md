@@ -2,14 +2,14 @@
 
 ## Active claim
 
-- Backlog: `VH-M0-001`, `VH-M0-002`
+- Backlog: `VH-M1-001`
 - Owner: Codex
-- Branch: `feat/vh-m0-001-project-scaffold`
-- Status: `VERIFYING`
+- Branch: `feat/vh-m1-001-api-verifier`
+- Status: `IN_PROGRESS`
 
 ## Current outcome
 
-The public-repository-safe foundation, canonical project documents, IL2CPP project scaffold, and exact API verification entry point are complete and ready for review.
+The public-repository-safe foundation remains in draft PR #1. Work has started on turning the initial API verification entry point into the exact M1 compatibility gate for all contracts required by Handler implementation.
 
 ## Compatibility target
 
@@ -37,6 +37,6 @@ Commands:
 
 ## Next work
 
-1. Review and merge the foundation branch.
-2. Claim `VH-M1-001` on its own branch after the foundation is publicly visible.
-3. Freeze the cross-worker contracts before parallel M2/M3/M4 implementation.
+1. Complete and run the exact `VH-M1-001` compatibility verifier.
+2. Review and merge the foundation branch and this stacked compatibility work with owner approval.
+3. Claim `VH-M1-002` and freeze the cross-worker contracts before parallel M2/M3/M4 implementation.
