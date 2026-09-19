@@ -8,6 +8,7 @@
     <LangVersion>8.0</LangVersion>
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DefineConstants>TRACE;Il2Cpp</DefineConstants>
     <Deterministic>true</Deterministic>
@@ -15,6 +16,11 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>bin\Il2Cpp\</OutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\**\*.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="MelonLoader" HintPath="$(MelonLoaderRoot)\net6\MelonLoader.dll" Private="false" />

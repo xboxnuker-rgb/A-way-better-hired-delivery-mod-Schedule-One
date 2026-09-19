@@ -2,14 +2,14 @@
 
 ## Active claim
 
-- Backlog: `VH-M1-001`
+- Backlog: `VH-M1-002`
 - Owner: Codex
-- Branch: `feat/vh-m1-001-api-verifier`
+- Branch: `feat/vh-m1-002-contracts`
 - Status: `DONE`
 
 ## Current outcome
 
-Foundation PR #1 is merged. The exact M1 compatibility gate is complete on draft PR #2 and verifies the reference layout, game and FishNet hashes, type inheritance, method signatures, property contracts, singleton access, server-authority signals, GUID lookup, selection collections, movement, dock occupancy, and save/load hooks required by later milestones.
+Foundation PR #1 and exact API-verifier PR #2 are merged. Draft PR #3 completes `VH-M1-002` with contract version 1: strongly typed identities, immutable revisioned assignments, stable validation outcomes, an explicit trip transition policy, owner-and-trip reservation leases, and server-authoritative service boundaries. M2, M3, and M4 can implement against these contracts after PR #3 is merged.
 
 ## Compatibility target
 
@@ -24,20 +24,23 @@ Game references remain outside this repository.
 ## Verification status
 
 - Strict static API verification passed all 95 checks against the out-of-tree reference set.
+- Dependency-free contract verification passed all 110 assertions, including the complete 9-by-9 trip transition matrix.
 - An intentionally incorrect `Assembly-CSharp.dll` hash was rejected before API inspection.
 - Release build completed with zero warnings and zero errors using .NET SDK `8.0.425`.
-- Verified scaffold DLL SHA-256: `E7A2DC413DAA588C64AC0EE60151EE2862295F550E45902921E07C6B75CC24CC`.
+- Verified contract-layer DLL SHA-256: `CCE4B75045CEAE2725D6AA1D77867AF604392539B849376D47F9B7DC989BA058`.
+- The production project now compiles only `Properties/AssemblyInfo.cs` and `Source/**/*.cs`; test build artifacts cannot leak into the mod DLL.
 - Runtime behavior remains untested because gameplay implementation has not started.
 
 Commands:
 
 ```powershell
 .\scripts\verify-game-api.ps1 -MelonLoaderRoot "<out-of-tree-MelonLoader>"
+.\scripts\verify-contracts.ps1 -DotNet "<dotnet-8.0.425>"
 .\scripts\build-il2cpp.ps1 -MelonLoaderRoot "<out-of-tree-MelonLoader>" -DotNet "<dotnet-8.0.425>"
 ```
 
 ## Next work
 
-1. Review and merge draft PR #2 with owner approval.
-2. Claim `VH-M1-002` and freeze identifiers, validation results, state transitions, service boundaries, and reservation ownership.
-3. Begin M2, M3, and M4 only after those shared contracts are merged.
+1. Review and merge draft PR #3 with owner approval.
+2. After merge, claim `VH-M2-001`, `VH-M3-001`, or `VH-M4-001` on separate branches; these milestone roots may now proceed independently.
+3. Preserve contract version 1 semantics and coordinate any contract change through the handover before parallel work consumes it.
