@@ -45,4 +45,4 @@ A mismatched hash or changed signature fails immediately with the expected and o
 
 ## Boundary
 
-This is static compatibility evidence, not runtime proof. It does not validate game-side behavior, multiplayer replication, save recovery, UI integration, or delivery conflicts. Those remain gated by M2-M5 runtime work. M1-002 must freeze the mod-owned identifiers, state machine, validation results, service interfaces, and reservation ownership before those milestones proceed in parallel.
+This is static compatibility evidence, not runtime proof. It does not validate game-side behavior, multiplayer replication, save recovery, UI integration, or delivery conflicts. Those remain gated by M2-M5 runtime work. M1-002 freezes the mod-owned identifiers, state machine, validation results, service interfaces, and reservation ownership in [Internal Contracts](INTERNAL_CONTRACTS.md).

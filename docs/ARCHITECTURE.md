@@ -4,6 +4,8 @@
 
 The server is authoritative for assignments, work state, bay reservations, and physical vehicle transitions. Clients render replicated employee, vehicle, and dock state and may request configuration changes through validated server paths.
 
+The versioned cross-milestone types and mutation boundaries are frozen in [Internal Contracts](INTERNAL_CONTRACTS.md). M2, M3, and M4 depend on those contracts rather than each other's concrete implementations.
+
 ## Components
 
 ### Handler employee
