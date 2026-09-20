@@ -2,14 +2,14 @@
 
 ## Active claim
 
-- Backlog: `VH-M1-002`
+- Backlog: `VH-M2-001`
 - Owner: Codex
-- Branch: `feat/vh-m1-002-contracts`
-- Status: `DONE`
+- Branch: `feat/vh-m2-001-handler-runtime`
+- Status: `IN_PROGRESS`
 
 ## Current outcome
 
-Foundation PR #1 and exact API-verifier PR #2 are merged. Draft PR #3 completes `VH-M1-002` with contract version 1: strongly typed identities, immutable revisioned assignments, stable validation outcomes, an explicit trip transition policy, owner-and-trip reservation leases, and server-authoritative service boundaries. M2, M3, and M4 can implement against these contracts after PR #3 is merged.
+Foundation PR #1, exact API-verifier PR #2, and contract PR #3 are merged. `VH-M2-001` is claimed to add the genuine Handler runtime worker and role-specific appearance without yet changing hiring, work lifecycle, assignments, reservations, or movement.
 
 ## Compatibility target
 
@@ -41,6 +41,6 @@ Commands:
 
 ## Next work
 
-1. Review and merge draft PR #3 with owner approval.
-2. After merge, claim `VH-M2-001`, `VH-M3-001`, or `VH-M4-001` on separate branches; these milestone roots may now proceed independently.
-3. Preserve contract version 1 semantics and coordinate any contract change through the handover before parallel work consumes it.
+1. Verify the exact employee construction, prefab selection, IL2CPP registration, and appearance APIs needed by the Handler worker.
+2. Implement and statically verify the distinct Handler runtime type and appearance boundary without taking over base hiring or lifecycle behavior.
+3. Review and merge the `VH-M2-001` PR before claiming `VH-M2-002` or `VH-M2-003`.
