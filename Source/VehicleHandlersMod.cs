@@ -1,4 +1,5 @@
 using MelonLoader;
+using VehicleHandlers.Runtime;
 
 namespace VehicleHandlers
 {
@@ -10,7 +11,8 @@ namespace VehicleHandlers
 
         public override void OnInitializeMelon()
         {
-            MelonLogger.Msg($"{ModName} {Version} initialized. Runtime features are under active development.");
+            HandlerRuntimeRegistration.Register();
+            MelonLogger.Msg($"{ModName} {Version} initialized. HandlerEmployee is registered for IL2CPP runtime construction.");
         }
     }
 }

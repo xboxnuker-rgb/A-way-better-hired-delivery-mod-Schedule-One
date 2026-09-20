@@ -10,7 +10,7 @@ The versioned cross-milestone types and mutation boundaries are frozen in [Inter
 
 ### Handler employee
 
-`HandlerEmployee` supplies the missing runtime worker for the existing `EEmployeeType.Handler` value. An existing employee prefab may be used as a construction donor, but role-specific behavior is replaced and the resulting worker is identified and displayed as Handler.
+`HandlerEmployee` supplies the missing runtime worker for the existing `EEmployeeType.Handler` value. It is registered as an injected IL2CPP type, preserves base employee initialization, and applies its role after base initialization. Its generated employee appearance receives a fail-safe high-visibility outer-layer color without mutating shared appearance assets. An existing employee prefab may be used as a construction donor, but role-specific behavior is replaced and the resulting worker is identified and displayed as Handler. See [Handler Runtime Worker](HANDLER_RUNTIME.md).
 
 ### Assignment registry
 
