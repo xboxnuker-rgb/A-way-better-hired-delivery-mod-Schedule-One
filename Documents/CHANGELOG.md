@@ -11,4 +11,7 @@ Format follows Keep a Changelog. The project uses semantic versioning after the 
 - Strict 95-check compatibility gate for Handler lifecycle, identity, selection, movement, reservations, networking, and persistence APIs.
 - Version 1 internal contracts for stable identities, revisioned assignments, validation outcomes, trip states, reservation leases, and server-authoritative service boundaries.
 - Dependency-free contract verifier covering 110 version, identity, assignment, transition, reservation, and validation assertions.
+- Injected `HandlerEmployee` role component that composes with the genuine game Employee and adds a fail-safe high-visibility outer-layer appearance through a Handler-filtered Harmony postfix.
+- Expanded 124-check API gate with pinned IL2CPP interop, Unity, and Harmony inputs plus a 12-check compiled runtime-worker verifier.
+- In-game startup verification of Handler type registration, including replacement of an unsupported direct-Employee injection strategy discovered by the first test.
 
