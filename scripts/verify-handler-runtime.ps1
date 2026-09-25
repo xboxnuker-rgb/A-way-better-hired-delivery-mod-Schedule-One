@@ -85,20 +85,20 @@ try {
 
     $handlerType = Get-RequiredType "VehicleHandlers.Employees.HandlerEmployee"
     Assert-Condition ($handlerType.IsPublic) "HandlerEmployee is public for IL2CPP registration"
-    Assert-Condition ($handlerType.BaseType.FullName -ceq "Il2CppScheduleOne.Employees.Employee") "HandlerEmployee derives directly from Employee"
+    Assert-Condition ($handlerType.BaseType.FullName -ceq "UnityEngine.MonoBehaviour") "HandlerEmployee uses the supported MonoBehaviour injection boundary"
 
     $nativeConstructor = Get-RequiredMethod "VehicleHandlers.Employees.HandlerEmployee" ".ctor" @("System.IntPtr")
     Assert-Condition ($nativeConstructor.IsPublic) "HandlerEmployee exposes the native-pointer constructor"
 
     $awake = Get-RequiredMethod "VehicleHandlers.Employees.HandlerEmployee" "Awake"
-    Assert-Condition ($awake.IsPublic -and $awake.IsVirtual) "HandlerEmployee overrides public virtual Awake"
-    Assert-Call $awake "*Il2CppScheduleOne.Employees.Employee::Awake()*" "HandlerEmployee Awake preserves the base employee initialization"
+    Assert-Condition ($awake.IsPublic) "HandlerEmployee exposes the Unity Awake message"
+    Assert-Call $awake "*GetComponent*Il2CppScheduleOne.Employees.Employee*" "HandlerEmployee binds to the real game Employee component"
     Assert-Call $awake "*Il2CppScheduleOne.Employees.Employee::set_Type*" "HandlerEmployee Awake applies the Handler role"
 
-    $initializeAppearance = Get-RequiredMethod "VehicleHandlers.Employees.HandlerEmployee" "InitializeAppearance" @("System.Boolean", "System.Int32")
-    Assert-Condition ($initializeAppearance.IsPublic -and $initializeAppearance.IsVirtual) "HandlerEmployee overrides public virtual InitializeAppearance"
-    Assert-Call $initializeAppearance "*Il2CppScheduleOne.Employees.Employee::InitializeAppearance*" "Handler appearance preserves base generated appearance"
-    Assert-Call $initializeAppearance "*VehicleHandlers.Employees.HandlerAppearance::TryApply*" "Handler appearance applies the role-specific overlay"
+    $appearancePostfix = Get-RequiredMethod "VehicleHandlers.Employees.HandlerAppearancePatch" "Postfix" @("Il2CppScheduleOne.Employees.Employee")
+    Assert-Condition ($appearancePostfix.IsPrivate -and $appearancePostfix.IsStatic) "Handler appearance is isolated in a static Harmony postfix"
+    Assert-Call $appearancePostfix "*Il2CppScheduleOne.Employees.Employee::get_EmployeeType*" "Handler appearance filters on the game Handler role"
+    Assert-Call $appearancePostfix "*VehicleHandlers.Employees.HandlerAppearance::TryApply*" "Handler appearance applies the role-specific overlay"
 
     $register = Get-RequiredMethod "VehicleHandlers.Runtime.HandlerRuntimeRegistration" "Register"
     Assert-Call $register "*ClassInjector::IsTypeRegisteredInIl2Cpp*" "Runtime registration is idempotent"

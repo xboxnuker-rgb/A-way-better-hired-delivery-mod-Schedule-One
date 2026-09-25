@@ -7,7 +7,11 @@ param(
 
     [string] $ExpectedFishNetSha256 = "202E89D1E5B27E19403F66DA1779CA82E6E08D17199F2D2593C86CFDC65EF0F4",
 
-    [string] $ExpectedInteropSha256 = "A1154A31EC72D4097A0A1DB50E046D97AA6C9B60BCFEB4D0489DF6230960F674"
+    [string] $ExpectedInteropSha256 = "A1154A31EC72D4097A0A1DB50E046D97AA6C9B60BCFEB4D0489DF6230960F674",
+
+    [string] $ExpectedUnityCoreSha256 = "269552723AB92FBBCA5DFD1C7EC7D875A95406AB048A1CC9B1BAA78C9B9B62E8",
+
+    [string] $ExpectedHarmonySha256 = "6C898933B52149E8BCF6722305C7E4D94ADD47C9E53B364096F91721624C0877"
 )
 
 $ErrorActionPreference = "Stop"
@@ -41,6 +45,8 @@ $script:PassCount++
 $assemblyPath = Join-Path $MelonLoaderRoot "Il2CppAssemblies\Assembly-CSharp.dll"
 $fishNetPath = Join-Path $MelonLoaderRoot "Il2CppAssemblies\Il2CppFishNet.Runtime.dll"
 $interopPath = Join-Path $MelonLoaderRoot "net6\Il2CppInterop.Runtime.dll"
+$unityCorePath = Join-Path $MelonLoaderRoot "Il2CppAssemblies\UnityEngine.CoreModule.dll"
+$harmonyPath = Join-Path $MelonLoaderRoot "net6\0Harmony.dll"
 $cecilPath = Join-Path $MelonLoaderRoot "net6\Mono.Cecil.dll"
 
 function Assert-FileHash(
@@ -60,15 +66,21 @@ function Assert-FileHash(
 Assert-FileHash $assemblyPath $ExpectedAssemblySha256 "Assembly-CSharp.dll"
 Assert-FileHash $fishNetPath $ExpectedFishNetSha256 "Il2CppFishNet.Runtime.dll"
 Assert-FileHash $interopPath $ExpectedInteropSha256 "Il2CppInterop.Runtime.dll"
+Assert-FileHash $unityCorePath $ExpectedUnityCoreSha256 "UnityEngine.CoreModule.dll"
+Assert-FileHash $harmonyPath $ExpectedHarmonySha256 "0Harmony.dll"
 
 [void] [System.Reflection.Assembly]::LoadFrom($cecilPath)
 $gameAssembly = [Mono.Cecil.AssemblyDefinition]::ReadAssembly($assemblyPath)
 $fishNetAssembly = [Mono.Cecil.AssemblyDefinition]::ReadAssembly($fishNetPath)
 $interopAssembly = [Mono.Cecil.AssemblyDefinition]::ReadAssembly($interopPath)
+$unityCoreAssembly = [Mono.Cecil.AssemblyDefinition]::ReadAssembly($unityCorePath)
+$harmonyAssembly = [Mono.Cecil.AssemblyDefinition]::ReadAssembly($harmonyPath)
 $assemblies = @{
     Game = $gameAssembly
     FishNet = $fishNetAssembly
     Interop = $interopAssembly
+    Unity = $unityCoreAssembly
+    Harmony = $harmonyAssembly
 }
 
 try {
@@ -229,9 +241,20 @@ try {
     Assert-Type "Game" "Il2CppScheduleOne.AvatarFramework.Avatar" "UnityEngine.MonoBehaviour"
     Assert-Type "Game" "Il2CppScheduleOne.AvatarFramework.AvatarSettings" "UnityEngine.ScriptableObject"
     Assert-Type "Interop" "Il2CppInterop.Runtime.Injection.ClassInjector" "System.Object"
+    Assert-Type "Unity" "UnityEngine.Component" "UnityEngine.Object"
+    Assert-Type "Unity" "UnityEngine.Behaviour" "UnityEngine.Component"
+    Assert-Type "Unity" "UnityEngine.MonoBehaviour" "UnityEngine.Behaviour"
+    Assert-Type "Harmony" "HarmonyLib.HarmonyPatch" "HarmonyLib.HarmonyAttribute"
+    Assert-Type "Harmony" "HarmonyLib.HarmonyPostfix" "System.Attribute"
 
     Assert-Method "Interop" "Il2CppInterop.Runtime.Injection.ClassInjector" "IsTypeRegisteredInIl2Cpp" "System.Boolean" @() $true 1
     Assert-Method "Interop" "Il2CppInterop.Runtime.Injection.ClassInjector" "RegisterTypeInIl2Cpp" "System.Void" @() $true 1
+    Assert-Method "Unity" "UnityEngine.Component" "GetComponent" "T" @() $false 1
+    Assert-Property "Unity" "UnityEngine.Behaviour" "enabled" "System.Boolean" $true
+    Assert-Method "Harmony" "HarmonyLib.HarmonyPatch" ".ctor" "System.Void" @(
+        "System.Type", "System.String", "System.Type[]"
+    )
+    Assert-Method "Harmony" "HarmonyLib.HarmonyPostfix" ".ctor" "System.Void"
 
     # Handler creation and base employee lifecycle.
     Assert-EnumValue "Il2CppScheduleOne.Employees.EEmployeeType" "Handler" 1
@@ -371,4 +394,6 @@ finally {
     $gameAssembly.Dispose()
     $fishNetAssembly.Dispose()
     $interopAssembly.Dispose()
+    $unityCoreAssembly.Dispose()
+    $harmonyAssembly.Dispose()
 }

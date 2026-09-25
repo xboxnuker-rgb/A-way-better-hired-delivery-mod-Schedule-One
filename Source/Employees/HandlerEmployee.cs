@@ -1,38 +1,28 @@
 using System;
 using Il2CppScheduleOne.Employees;
 using MelonLoader;
+using UnityEngine;
 
 namespace VehicleHandlers.Employees
 {
-    public sealed class HandlerEmployee : Employee
+    public sealed class HandlerEmployee : MonoBehaviour
     {
         public HandlerEmployee(IntPtr nativePointer)
             : base(nativePointer)
         {
         }
 
-        public override void Awake()
+        public void Awake()
         {
-            Type = EEmployeeType.Handler;
-            base.Awake();
-            Type = EEmployeeType.Handler;
-        }
-
-        public override void InitializeAppearance(bool isMale, int appearanceIndex)
-        {
-            base.InitializeAppearance(isMale, appearanceIndex);
-
-            try
+            Employee worker = GetComponent<Employee>();
+            if (worker == null)
             {
-                if (!HandlerAppearance.TryApply(Avatar))
-                {
-                    MelonLogger.Warning("Handler appearance could not find a non-base body layer; preserving the generated employee appearance.");
-                }
+                MelonLogger.Error("HandlerEmployee requires a game Employee component on the same object.");
+                enabled = false;
+                return;
             }
-            catch (Exception exception)
-            {
-                MelonLogger.Warning($"Handler appearance override failed safely: {exception.Message}");
-            }
+
+            worker.Type = EEmployeeType.Handler;
         }
     }
 }
